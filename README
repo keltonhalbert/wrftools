@@ -5,6 +5,8 @@ Email: keltonhalbert@ou.edu
 Website: http://tempestchasing.com
 Protected under the GPL V2 license.
 
+Requires: numpy
+
 This library is a compilation of functions designed for the purposes of post processing output from the WRF model. 
 wrftools.variables contains the functions for generating various data, and wrftools.interp contains the function for vertically interpolating grids. 
 
