@@ -1,4 +1,25 @@
 wrftools
 ========
+Written by Kelton Halbert // January 2014
+Email: keltonhalbert@ou.edu
+Website: http://tempestchasing.com
+Protected under the GPL V2 license.
 
-Functions for post processing WRF output data
+This library is a compilation of functions designed for the purposes of post processing output from the WRF model. 
+wrftools.variables contains the functions for generating various data, and wrftools.interp contains the function for vertically interpolating grids. 
+
+Below is a brief description of the functions available. See the documentation for information on how to use them.
+
+variables:
+    wrf_unstagger - unstagger a 2D-5D grid
+    wrf_pressure - calculate pressure
+    wrf_height - calculate geopotential height
+    wrf_theta - calculate potential temperature
+    wrf_temp - calculate 'normal' temperature
+    wrf_rh - calculate relative humidity
+    wrf_vort - calculate relative vorticity
+    wrf_absvort - calculate absolute vorticity
+    wrf_pv - calculate potential vorticity
+
+interp:
+    wrf_to_pres - interpolate to vertical surfaces
