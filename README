@@ -5,6 +5,10 @@ Email: keltonhalbert@ou.edu
 Website: http://tempestchasing.com
 Protected under the GPL V2 license.
 
+******
+SEE IPYTHON NOTEBOOK AND HTML FILE FOR TUTORIAL
+******
+
 Requires: numpy
 
 This library is a compilation of functions designed for the purposes of post processing output from the WRF model. 
