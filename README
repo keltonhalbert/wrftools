@@ -7,7 +7,7 @@ Protected under the GPL V2 license.
 
 ******
 SEE IPYTHON NOTEBOOK AND HTML FILE FOR TUTORIAL
-http://nbviewer.ipython.org/github/keltonhalbert/wrftools/blob/master/wrfpost.ipynb
+http://nbviewer.ipython.org/github/keltonhalbert/wrftools/examples/blob/master/wrfpost.ipynb
 ******
 
 Requires: numpy
