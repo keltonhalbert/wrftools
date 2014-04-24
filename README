@@ -18,15 +18,20 @@ wrftools.variables contains the functions for generating various data, and wrfto
 Below is a brief description of the functions available. See the documentation for information on how to use them.
 
 variables:
+    wrf_copy_attributes - creates netCDF dimensions and global attributes from wrfout to the interpolated file. Use to initialize a new file.
+    wrf_copy_sfc_fields - copy model surface/2d fields to the new netCDF file. use wrf_copy_attributes first.
+    wrf_copy_satic_fields - copy static model fields, such as XLONG, XLAT, coriolis, map scale factor, etc. Use wrf_copy_attributes first.
     wrf_unstagger - unstagger a 2D-5D grid
     wrf_pressure - calculate pressure
     wrf_height - calculate geopotential height
     wrf_theta - calculate potential temperature
     wrf_temp - calculate 'normal' temperature
     wrf_rh - calculate relative humidity
+    wrf_dewp - calculate dewpoint
     wrf_vort - calculate relative vorticity
     wrf_absvort - calculate absolute vorticity
     wrf_pv - calculate potential vorticity
 
 interp:
-    wrf_to_pres - interpolate to vertical surfaces
+    wrf_to_pres - interpolate to pressure/isentropic surfaces
+    wrf_to_pv - interpolate to PV surfaces
