@@ -1,5 +1,5 @@
 import interp
 import variables
 
-__version__ = '1.0'
-__all__ = [ 'interp', 'variables' ]
+__version__ = '1.5'
+__all__ = [ 'interp', 'utils', 'variables' ]
