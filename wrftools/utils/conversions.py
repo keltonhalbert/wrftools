@@ -156,7 +156,7 @@ def mh_to_ms( spd ):
     -------
     spd converted to meters/second
     '''
-    return spd / * 0.00062137 / 3600.
+    return spd / 0.00062137 / 3600.
 
 def mh_to_kts( spd ):
     '''
