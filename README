@@ -5,9 +5,10 @@ Email: keltonhalbert@ou.edu
 Website: http://tempestchasing.com
 Protected under the GPL license.
 
+!!!!NOTICE!!!!
 ******
-SEE IPYTHON NOTEBOOK AND HTML FILE FOR TUTORIAL
-http://nbviewer.ipython.org/urls/raw.github.com/keltonhalbert/wrftools/master/examples/wrfpost.ipynb
+CURRENTLY ONLY SUPPORTS WRF-ARW CORE. WORK IS BEING DONE TO IMPLEMENT WRF-NMM.
+EXAMPLE IPYTHON NOTEBOOK UNDER DEVELOPMENT.
 ******
 
 Requires: numpy
@@ -17,21 +18,23 @@ wrftools.variables contains the functions for generating various data, and wrfto
 
 Below is a brief description of the functions available. See the documentation for information on how to use them.
 
-variables:
-    wrf_copy_attributes - creates netCDF dimensions and global attributes from wrfout to the interpolated file. Use to initialize a new file.
-    wrf_copy_sfc_fields - copy model surface/2d fields to the new netCDF file. use wrf_copy_attributes first.
-    wrf_copy_satic_fields - copy static model fields, such as XLONG, XLAT, coriolis, map scale factor, etc. Use wrf_copy_attributes first.
-    wrf_unstagger - unstagger a 2D-5D grid
-    wrf_pressure - calculate pressure
-    wrf_height - calculate geopotential height
-    wrf_theta - calculate potential temperature
-    wrf_temp - calculate 'normal' temperature
-    wrf_rh - calculate relative humidity
-    wrf_dewp - calculate dewpoint
-    wrf_vort - calculate relative vorticity
-    wrf_absvort - calculate absolute vorticity
-    wrf_pv - calculate potential vorticity
+utils:
+    Contains utility functions, such as saving and copying netCDF attributes and unit conversions.
+    - attributes: Various netCDF and data attributes, such as unstaggering WRF grids and copying metadata
+    - conversions: Various unit conversions for distance, temperature, speed, and pressure
 
 interp:
-    wrf_to_pres - interpolate to pressure/isentropic surfaces
-    wrf_to_pv - interpolate to PV surfaces
+    Contains functions used to interpolate data to specific vertical levels.
+    - pres: interpolate data to pressure levels
+    - pv: interpolate data to pv levels
+
+variables:
+    Contains functions needed to calculate variables from the standard WRF output.
+    - thermo: contains thermodynamic computations, such as temperature and moisture variables.
+    - winds: contains kinematic computations, such as vorticity and potential vorticity.
+
+future work:
+    Add routines for parcel indices (CAPE, CINH, LCL, LFC, EL)
+    Add routines for shear indices (bulk shear, effective bulk shear, effective SRH, 0-1km SRH, 0-3km SRH, Storm Motion Vector)
+    Port routines to WRF-NMM
+    
