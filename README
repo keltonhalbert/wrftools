@@ -32,7 +32,7 @@ variables:
     Contains functions needed to calculate variables from the standard WRF output.
     - thermo: contains thermodynamic computations, such as temperature and moisture variables.
     - winds: contains kinematic computations, such as vorticity and potential vorticity.
-
+    - vertical: contains computations to calculate pressure and height.
 future work:
     Add routines for parcel indices (CAPE, CINH, LCL, LFC, EL)
     Add routines for shear indices (bulk shear, effective bulk shear, effective SRH, 0-1km SRH, 0-3km SRH, Storm Motion Vector)
