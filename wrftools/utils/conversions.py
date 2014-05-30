@@ -64,7 +64,7 @@ def c_to_k( tmp ):
     -------
     tmp converted to degrees Kelvin
     '''
-    return val + 273.15
+    return tmp + 273.15
 
 def c_to_f( tmp ):
     '''
