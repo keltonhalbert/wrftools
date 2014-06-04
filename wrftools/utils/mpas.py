@@ -1,6 +1,7 @@
 import numpy as np
 from netCDF4 import Dataset
-
+## functions originally written by Nick Szapiro,
+## modified by Kelton Halbert.
 
 def find_cells(file, lats_wrf, lons_wrf, degrees=False):
   '''
@@ -48,6 +49,9 @@ def find_cells(file, lats_wrf, lons_wrf, degrees=False):
   return cellIdx
   
 def findOwner_horizNbrs_latLon(pt_ll, cellId, latCell, lonCell, nEdgesOnCell, cellsOnCell):
+  '''
+  Written by Nick Szapiro.
+  '''
   dCell = calc_distSphere(1., pt_ll[0], pt_ll[1], latCell[cellId], lonCell[cellId]);
 
   flag = 1;
