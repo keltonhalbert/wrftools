@@ -6,19 +6,28 @@
 import numpy
 
 def wrf_to_pv( grid, surface, interplevels ):
-    """Linearly interpolates a grid to potential voericity levels defined by 
-        interplevels. This uses the numpy.interp function that requires
-        the function coordinate values to be monotonically increasing,
-        and this function does not check for this. See numpy.interp docs
-        for more information. Grid and surface must be the same shape.
-    -----------------------
-    grid (numpy.ndarray): 4D array of values to be interpolated onto a vertical surface.  Must be monotonically increasing.
-    surface (numpy.ndarray): 4D array of the verical coordinate values of the surface to be interpolated to. Must be monotonically increasing.
-    interplevels (numpy.ndarray): 1D array of vertical coordinate values that are desired to be interpolated to.
-    -----------------------
-    returns:
-        numpy.ndarray of values of shape (grid.shape[0], len( interplevels ), grid.shape[2], grid.shape[3] )
-    """
+    '''
+    Linearly interpolates a grid to interplevels (in potential 
+    vorticity units). This uses the numpy.interp function that 
+    requires the function coordinate values to be monotonically 
+    increasing, and this function does not check for this. See 
+    numpy.interp docs for more information. Grid and surface must 
+    be the same shape.
+
+    Parameters
+    ----------
+    grid - 4D array of values to be interpolated onto a vertical surface.  
+        Must be monotonically increasing.
+    surface - 4D array of the verical coordinate values of the surface to be 
+        interpolated to. Must be monotonically increasing.
+    interplevels - 1D array of vertical coordinate values that are desired 
+        to be interpolated to.
+
+    Returns
+    -------
+    outgrid - numpy.ndarray of values of shape 
+        (grid.shape[0], len( interplevels ), grid.shape[2], grid.shape[3] )
+    '''
     shape = ( grid.shape[0], interplevels.shape[0], grid.shape[2], grid.shape[3] )
     outgrid = numpy.ones( shape )
     for time in numpy.arange( grid.shape[0] ):
