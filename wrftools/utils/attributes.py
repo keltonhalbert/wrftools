@@ -3,6 +3,9 @@
 ## http://tempestchasing.com
 ## Protected under the GPL V2 License
 
+from wrftools.variables import *
+from wrftools.utils import *
+from wrftools.interp import *
 from netCDF4 import Dataset
 import numpy
 
