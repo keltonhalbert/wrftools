@@ -155,7 +155,7 @@ def wrf_unstagger( grid, dim ):
             gridout = ( grid[ :, :-1, :, : ] + grid[ :, 1:, :, : ] ) / 2.
         elif nd == 3:
             gridout = ( grid[ :-1, :, : ] + grid[ 1:, :, : ] ) / 2.
-        elif:
+        elif nd == 1:
             gridout = ( grid[ :-1 ] + grid[ 1: ] ) / 2.
         else: pass
     return gridout
