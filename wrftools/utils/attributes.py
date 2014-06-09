@@ -126,30 +126,36 @@ def wrf_unstagger( grid, dim ):
     nd = len( grid.shape )
     if dim == 'X' or dim == 'U':
         if nd == 5:
-            gridout = ( grid[ :, :, :, :, :-1 ] + grid[ :, :, :, :, 1: ] ) / 2
+            gridout = ( grid[ :, :, :, :, :-1 ] + grid[ :, :, :, :, 1: ] ) / 2.
         elif nd == 4:
-            gridout = ( grid[ :, :, :, :-1 ] + grid[ :, :, :, 1: ] ) / 2
+            gridout = ( grid[ :, :, :, :-1 ] + grid[ :, :, :, 1: ] ) / 2.
         elif nd == 3:
-            gridout = ( grid[ :, :, :-1 ] + grid[ :, :, 1: ] ) / 2
+            gridout = ( grid[ :, :, :-1 ] + grid[ :, :, 1: ] ) / 2.
         elif nd == 2:
-            gridout = ( grid[ :, :-1 ] + grid[ :, 1: ] ) / 2
+            gridout = ( grid[ :, :-1 ] + grid[ :, 1: ] ) / 2.
+        elif nd == 1:
+            gridout = ( grid[ :-1 ] + grid[ 1: ] ) / 2.
         else: pass
     if dim == 'Y' or dim == 'V':
         if nd == 5:
-            gridout = ( grid[ :, :, :, :-1, : ] + grid[ :, :, :, 1:, : ] ) / 2
+            gridout = ( grid[ :, :, :, :-1, : ] + grid[ :, :, :, 1:, : ] ) / 2.
         elif nd == 4:
-            gridout = ( grid[ :, :, :-1, : ] + grid[ :, :, 1:, : ] ) / 2
+            gridout = ( grid[ :, :, :-1, : ] + grid[ :, :, 1:, : ] ) / 2.
         elif nd == 3:
-            gridout = ( grid[ :, :-1, : ] + grid[ :, 1:, : ] ) / 2
+            gridout = ( grid[ :, :-1, : ] + grid[ :, 1:, : ] ) / 2.
         elif nd == 2:
-            gridout = ( grid[ :-1, : ] + grid[ 1:, : ] ) / 2
+            gridout = ( grid[ :-1, : ] + grid[ 1:, : ] ) / 2.
+        elif nd == 1:
+            gridout = ( grid[ :-1 ] + grid[ 1: ] ) / 2.
         else: pass
     if dim == 'Z' or dim == 'W':
         if nd == 5:
-            gridout = ( grid[ :, :, :-1, :, : ] + grid[ :, :, 1:, :, : ] ) / 2
+            gridout = ( grid[ :, :, :-1, :, : ] + grid[ :, :, 1:, :, : ] ) / 2.
         elif nd == 4:
-            gridout = ( grid[ :, :-1, :, : ] + grid[ :, 1:, :, : ] ) / 2
+            gridout = ( grid[ :, :-1, :, : ] + grid[ :, 1:, :, : ] ) / 2.
         elif nd == 3:
-            gridout = ( grid[ :-1, :, : ] + grid[ 1:, :, : ] ) / 2
+            gridout = ( grid[ :-1, :, : ] + grid[ 1:, :, : ] ) / 2.
+        elif:
+            gridout = ( grid[ :-1 ] + grid[ 1: ] ) / 2.
         else: pass
     return gridout
