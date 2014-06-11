@@ -65,7 +65,7 @@ def wrf_copy_sfc_fields( infilename, outfilename ):
     infile.close()
     outfile.close()
 
-def wrf_copy_static_fields( infilename, outfilename ):
+def wrf_copy_static_fields( infilename, outfilename, time=True ):
     
     infile = Dataset( infilename )
     outfile = Dataset( outfilename, 'a' )
@@ -80,7 +80,8 @@ def wrf_copy_static_fields( infilename, outfilename ):
     F = outfile.createVariable( 'F', 'f4', ('south_north', 'west_east') )
     MU = outfile.createVariable( 'MU', 'f4', ('south_north', 'west_east') )
     MUB = outfile.createVariable( 'MUB', 'f4', ('south_north', 'west_east') )
-    XTIME = outfile.createVariable( 'XTIME', 'f4', ('time') )
+    if time:
+        XTIME = outfile.createVariable( 'XTIME', 'f4', ('time') )
     try:
         XLONG[:] = infile.variables['XLONG'][0][:]
         XLAT[:] = infile.variables['XLAT'][0][:]
@@ -91,7 +92,8 @@ def wrf_copy_static_fields( infilename, outfilename ):
         MAPFAC_M[:] = infile.variables['MAPFAC_M'][0][:]
         SINALPHA[:] = infile.variables['SINALPHA'][0][:]
         COSALPHA[:] = infile.variables['COSALPHA'][0][:]
-        XTIME[:] = infile.variables['XTIME'][:]
+        if time:
+            XTIME[:] = infile.variables['XTIME'][:]
 
     except:
         XLONG[:] = infile.variables['XLONG'][:]
@@ -103,7 +105,8 @@ def wrf_copy_static_fields( infilename, outfilename ):
         MAPFAC_M[:] = infile.variables['MAPFAC_M'][:]
         SINALPHA[:] = infile.variables['SINALPHA'][:]
         COSALPHA[:] = infile.variables['COSALPHA'][:]
-        XTIME[:] = infile.variables['XTIME'][:]
+        if time:
+            XTIME[:] = infile.variables['XTIME'][:]
     infile.close()
     outfile.close()
 
