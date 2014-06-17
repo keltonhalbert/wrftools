@@ -46,7 +46,8 @@ def wrf_copy_sfc_fields( infilename, outfilename ):
     DEW2 = outfile.createVariable( 'DEWP', 'f4', ('time', 'south_north', 'west_east') )
     RH2 = outfile.createVariable( 'RH2', 'f4', ('time', 'south_north', 'west_east') )
     OLR = outfile.createVariable( 'OLR', 'f4', ('time', 'south_north', 'west_east') )
-    
+    ## get the sea level pressure
+    wrf_slp( infilename, outfilename ) 
     OLR[:] = infile.variables['OLR'][:]
     T2[:] = infile.variables['T2'][:]
     TH2[:] = infile.variables['TH2'][:]
