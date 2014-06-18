@@ -60,7 +60,7 @@ def wrf_copy_sfc_fields( infilename, outfilename ):
     SEAICE[:] = infile.variables['SEAICE'][:]
     RAINNC[:] = infile.variables['RAINNC'][:]
     SNOWNC[:] = infile.variables['SNOWNC'][:]
-    REFL_10CM[:] = infile.variables['REFL_10CM'][ :, 0, :, : ]
+    REFL_10CM[:] = infile.variables['REFL_10CM'][:].sum(axis=1)
     DEW2[:] = wrf_dewp( infile.variables['T2'][:], infile.variables['PSFC'][:]*.01, infile.variables['Q2'][:] )[:]
     
     infile.close()
