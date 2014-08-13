@@ -9,13 +9,29 @@ from wrftools.interp import *
 from netCDF4 import Dataset
 import numpy
 
-def wrf_copy_attributes( infilename, outfilename ):
+def wrf_copy_attributes( infilename, outfilename, nlevs ):
+    '''
+    Copies the netCDF attributes of one file into another file
+    that is created by this function. This is so that information
+    like the model start date, dx, and namelist options are data
+    attributes in post-processed netCDF files. This will assume that
+    the grid domain in both files is the same, and will use the west-
+    east and south-north values from the input file.
+
+    Parameters
+    ----------
+    infilename: The name/path of the input file to be read
+    outfilename: The name/path of the output file to be written
+    nlevs: The number of vertical levels that the output file should have
+
+
+    '''
     ## open the files
     infile = Dataset( infilename )
     outfile = Dataset( outfilename, 'w', format='NETCDF4' )
     
     ## create dimensions
-    level = outfile.createDimension( 'bottom_top', None )
+    level = outfile.createDimension( 'bottom_top', nlevs )
     time = outfile.createDimension( 'time', None )
     lon = outfile.createDimension( 'south_north', infile.getncattr('SOUTH-NORTH_PATCH_END_UNSTAG') )
     lat = outfile.createDimension( 'west_east', infile.getncattr('WEST-EAST_PATCH_END_UNSTAG') )
@@ -24,14 +40,17 @@ def wrf_copy_attributes( infilename, outfilename ):
     inattrs = infile.ncattrs()
     for attr in inattrs:
         outfile.setncattr( attr, infile.getncattr( attr ) )
+    ## close both files
     infile.close()
     outfile.close()
     
-def wrf_copy_sfc_fields( infilename, outfilename ):
-    
+def wrf_copy_sfc_fields( infilename, outfilename, **kwargs ):
+    '''
+
+    ''' 
     infile = Dataset( infilename )
     outfile = Dataset( outfilename, 'a' )
-    
+    ref = kwargs.get('ref', False)
     T2 = outfile.createVariable( 'T2', 'f4', ('time', 'south_north', 'west_east') )
     TH2 = outfile.createVariable( 'TH2', 'f4', ('time', 'south_north', 'west_east') )
     Q2 = outfile.createVariable( 'Q2', 'f4', ('time', 'south_north', 'west_east') )
@@ -42,7 +61,8 @@ def wrf_copy_sfc_fields( infilename, outfilename ):
     SEAICE = outfile.createVariable( 'SEAICE', 'f4', ('time', 'south_north', 'west_east') )
     RAINNC = outfile.createVariable( 'RAINNC', 'f4', ('time', 'south_north', 'west_east') )
     SNOWNC = outfile.createVariable( 'SNOWNC', 'f4', ('time', 'south_north', 'west_east') )
-    REFL_10CM = outfile.createVariable( 'REFL_10CM', 'f4', ('time', 'south_north', 'west_east') )
+    if ref:
+        REFL_10CM = outfile.createVariable( 'REFL_10CM', 'f4', ('time', 'south_north', 'west_east') )
     DEW2 = outfile.createVariable( 'DEWP', 'f4', ('time', 'south_north', 'west_east') )
     RH2 = outfile.createVariable( 'RH2', 'f4', ('time', 'south_north', 'west_east') )
     OLR = outfile.createVariable( 'OLR', 'f4', ('time', 'south_north', 'west_east') )
@@ -60,7 +80,8 @@ def wrf_copy_sfc_fields( infilename, outfilename ):
     SEAICE[:] = infile.variables['SEAICE'][:]
     RAINNC[:] = infile.variables['RAINNC'][:]
     SNOWNC[:] = infile.variables['SNOWNC'][:]
-    REFL_10CM[:] = numpy.amax(infile.variables['REFL_10CM'][:], axis=1)
+    if ref:
+        REFL_10CM[:] = numpy.amax(infile.variables['REFL_10CM'][:], axis=1)
     DEW2[:] = wrf_dewp( infile.variables['T2'][:], infile.variables['PSFC'][:]*.01, infile.variables['Q2'][:] )[:]
     
     infile.close()
