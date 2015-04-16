@@ -128,15 +128,21 @@ def _copy_variable(wrf_nc_infile, wrf_nc_outfile, variable):
     ## create a new variale in the output file using the information
     ## from the input file, and then copy the data values over
     wrf_nc_outfile.createVariable(variable, var.datatype, var.dimensions)
+    for attr in var.ncattrs():
+        wrf_nc_outfile.variables[variable].setncattr(attr, var.getncattr(attr))
     wrf_nc_outfile.variables[variable][:] = var[:]
     ## delete the variable from memory for efficiency purposes
     del var
 
-def write_all_variables(wrf_outfile, var_names, data_arrs, dims=None):
+def write_all_variables(wrf_outfile, var_names, data_arrs, dims=None, attr_dict={}):
     """
     Given an output file, a list of variable names, a list of data
     arrays corresponding to those names, and a list of tuple dimensions,
     write out the variables to the output netCDF file.
+
+    Optionally, if you wish to provide the variable with attributes,
+    a dictionary of attribute names and their values may be specified via
+    attr_dict.
     """
     if dims == None:
         print "Dimension cannot be None. Aborting..."
@@ -151,12 +157,16 @@ def write_all_variables(wrf_outfile, var_names, data_arrs, dims=None):
     wrf_nc_outfile.close()
     gc.collect()
 
-def write_variable(wrf_outfile, var_name, data_arr, dims=None):
+def write_variable(wrf_outfile, var_name, data_arr, dims=None, attr_dict={}):
     """
     Write out a new variable.
     Requires a path to the output file, the string name of the
     variable, the data array, and the tuple of string dimension
     names corresponding to the dimensions of the data array.
+    
+    Optionally, if you wish to provide the variable with attributes,
+    a dictionary of attribute names and their values may be specified via
+    attr_dict.
     """
     if dims == None:
         print "Dimension cannot be None. Aborting..."
@@ -169,10 +179,11 @@ def write_variable(wrf_outfile, var_name, data_arr, dims=None):
     wrf_nc_outfile.close()
     gc.collect()
 
-def _write_variable(wrf_nc_outfile, var_name, data_arr, dims=None):
+def _write_variable(wrf_nc_outfile, var_name, data_arr, dims=None, attr_dict={}):
     """
     Handles creating and writing a new variable to the WRF output
     file. Not to be called stand alone. See write_variable for usage,
     as it is a wrapper around this function.
     """
     wrf_nc_outfile.createVariable(var_name, data_arr.dtype, dims)
+    wrf_nc_outfile.variables[var_name].setncatts(attr_dict)
