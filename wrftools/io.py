@@ -190,3 +190,4 @@ def _write_variable(wrf_nc_outfile, var_name, data_arr, dims=None, attr_dict={})
     """
     wrf_nc_outfile.createVariable(var_name, data_arr.dtype, dims)
     wrf_nc_outfile.variables[var_name].setncatts(attr_dict)
+    wrf_nc_outfile.variables[var_name][:] = data_arr[:]
