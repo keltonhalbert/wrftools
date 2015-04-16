@@ -2,12 +2,13 @@ from netCDF4 import Dataset, MFDataset
 import numpy as np
 import gc
 
-def wrfopen(file, mode="r", ncformat="NETCDF4"):
+def wrfopen(file, mode="r", ncformat=None):
     """
     Open a new WRF file or list of files for 
     processing. File(s) are assumed to be an 
     output file from a successful model run.
     """
+    if ncformat == None: ncformat = "NETCDF3_CLASSIC"
     if type(file) == list:
         wrf_ncfile = MFDataset(file, mode, format=ncformat)
     else:
@@ -130,3 +131,48 @@ def _copy_variable(wrf_nc_infile, wrf_nc_outfile, variable):
     wrf_nc_outfile.variables[variable][:] = var[:]
     ## delete the variable from memory for efficiency purposes
     del var
+
+def write_all_variables(wrf_outfile, var_names, data_arrs, dims=None):
+    """
+    Given an output file, a list of variable names, a list of data
+    arrays corresponding to those names, and a list of tuple dimensions,
+    write out the variables to the output netCDF file.
+    """
+    if dims == None:
+        print "Dimension cannot be None. Aborting..."
+        return
+    ## open the file for append writing
+    wrf_nc_outfile = wrfopen(wrf_outfile, mode="a")
+    ## loop over the provided variable names, data, and dimensions
+    ## and write the variables to the netcdf file
+    for var_name, data_arr, dim in zip(var_names, data_arrs, dims):
+        _write_variable(wrf_nc_outfile, var_name, data_arr, dim)
+    ## close the file and garbage collect
+    wrf_nc_outfile.close()
+    gc.collect()
+
+def write_variable(wrf_outfile, var_name, data_arr, dims=None):
+    """
+    Write out a new variable.
+    Requires a path to the output file, the string name of the
+    variable, the data array, and the tuple of string dimension
+    names corresponding to the dimensions of the data array.
+    """
+    if dims == None:
+        print "Dimension cannot be None. Aborting..."
+        return
+    ## open the file for append writing
+    wrf_nc_outfile = wrfopen(wrf_outfile, mode="a")
+    ## write the variable
+    _write_variable(wrf_nc_file, var_name, data_arr, dims=dims)
+    ## close the file and garbage collect
+    wrf_nc_outfile.close()
+    gc.collect()
+
+def _write_variable(wrf_nc_outfile, var_name, data_arr, dims=None):
+    """
+    Handles creating and writing a new variable to the WRF output
+    file. Not to be called stand alone. See write_variable for usage,
+    as it is a wrapper around this function.
+    """
+    wrf_nc_outfile.createVariable(var_name, data_arr.dtype, dims)
