@@ -1,5 +1,5 @@
 import numpy
-import pv_interp
+import interp_pv
 __all__ = ["to_pres", "to_pv", "to_isent", "to_hght"]
 
 def to_pres( grid, surface, interplevels ):
