@@ -14,7 +14,7 @@ if __name__ == "__main__":
           description = ("Functions for post processing WRF data"),
           license = "GPL V2",
           url = "https://github.com/keltonhalbert/wrftools",
-          packages=['wrftools'],
+          packages=['wrftools', 'wrftools/variables'],
           classifiers=["Development Status :: 2 - Beta"],
           ext_modules = [ext1]
           )
