@@ -177,7 +177,7 @@ def write_variable(wrf_outfile, var_name, data_arr, dims=None, attr_dict={}):
     ## open the file for append writing
     wrf_nc_outfile = wrfopen(wrf_outfile, mode="a")
     ## write the variable
-    _write_variable(wrf_nc_file, var_name, data_arr, dims=dims)
+    _write_variable(wrf_nc_outfile, var_name, data_arr, dims=dims)
     ## close the file and garbage collect
     wrf_nc_outfile.close()
     gc.collect()
