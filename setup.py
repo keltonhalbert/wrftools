@@ -2,7 +2,7 @@ from numpy.distutils.core import Extension
 from numpy.distutils.core import setup
 
 
-ext1 = Extension(name = "pv_interp",
+ext1 = Extension(name = "interp_pv",
     sources=["wrftools/src/interp_pv.f90"])
 
 if __name__ == "__main__":
