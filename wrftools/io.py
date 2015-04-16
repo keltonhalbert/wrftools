@@ -2,6 +2,9 @@ from netCDF4 import Dataset, MFDataset
 import numpy as np
 import gc
 
+__all__ = ["wrfopen", "copy_all_dimensions", "copy_dimension", "copy_attributes"]
+__all__ += ["copy_all_variables", "copy_variable". "write_all_variables", "write_variable"]
+
 def wrfopen(file, mode="r", ncformat=None):
     """
     Open a new WRF file or list of files for 
